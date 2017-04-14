@@ -74,6 +74,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if current_user != @group.user
+      current_user.join(@group)
       redirect_to root_path, alert: "You have no permission"
     end
   end
