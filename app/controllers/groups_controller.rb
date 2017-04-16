@@ -22,6 +22,7 @@ class GroupsController < ApplicationController
     @group.user = current_user
 
     if @group.save
+      current_user.join!(@group)
       redirect_to groups_path
     else
       render :new
@@ -74,7 +75,6 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     if current_user != @group.user
-      current_user.join(@group)
       redirect_to root_path, alert: "You have no permission"
     end
   end
